@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const frogs = require("./frogs.js");
 
 const app = express();
 
@@ -8,15 +9,33 @@ app.use(morgan('dev'));
 app.use(express.static('public'));
 
 app.get("/", (req, res) => {
+  //First, get the list of frogs
+  const frogsList = frogs.list();
+
   //prepare some html to send as output
   const html = `<!DOCTYPE html>
     <html>
     <head>
-      <title>Frog Care Sheets</title>
+      <title>Frog and Toad Care Sheets</title>
     </head>
     <body>
-      <div class>
+      <div id = "header">
         <header>Frog Care Sheet</header>
+      </div>
+
+      <div id = "frogNames">
+        <ul>
+        <li>American Green Tree Frog</li>
+        <li>Barking Tree Frog</li>
+        <li>Fire Bellied Toad</li>
+        <li>Pac Man Frog</li>
+        <li>White Dumpy Tree Frog</li>
+        <li>${frogsList}</li>
+        </ul>
+      </div>
+
+      <div id= "footer">
+        <p>All care sheet information was aquired from https://www.petsuppliesplus.com/</p>
       </div>
     </body>
   </html>`;
