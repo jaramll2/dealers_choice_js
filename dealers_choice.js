@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
     <html>
     <head>
       <title>Frog and Toad Care Guide</title>
+      <link rel="stylesheet" href="/style.css" />
     </head>
     <body>
       <div id = "header">
@@ -44,30 +45,55 @@ app.get("/", (req, res) => {
 app.get('/posts/:id', (req, res) => {
   const id = req.params.id;
   const frogItem = frogs.find(id);
+
+  let imgName = '';
+
+  if(id === 1){
+      imgName = 'americanTree.jpg';
+  }
+  else if(id ===2){
+      imgName = 'barkingTree.jpg';
+  }
+  else if(id ===3){
+       imgName = 'fireBellied.jpg';
+  }
+  else if(id ===4){
+      imgName = 'pacman.jpg';
+  }
+  else{
+      imgName = 'dumpyTree.jpg';
+  }
+
   
   //then prepare some html to send as output
   const html = `<!DOCTYPE html>
     <html>
     <head>
         <title>Frog and Toad Care Guide</title>
+        <link rel="stylesheet" href="/style.css" />
     </head>
     <body>
         <div id = "header">
             <header><a href="/">&#128056 Frog and Toad Care Guide &#128056 </a></header>
         </div>
 
-        <div id='frog-item-detail'>
+        <div id='frogItemTitle'>
             <p>
               ${frogItem.title}
             </p>
+        </div>
+
+        
+        <div id='frogItemContent'>    
             <p>
-              ${frogItem.content}
+            ${frogItem.content}
             </p>
         </div>
 
-        <div id= "footer">
-            <p><small>All care sheet information was aquired from https://www.petsuppliesplus.com/</small></p>
+        <div id= "footerFlex">
+            <p>All care sheet information was aquired from https://www.petsuppliesplus.com/</p>
         </div>
+        
       
     </body>
   </html>`;
