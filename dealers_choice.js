@@ -16,26 +16,23 @@ app.get("/", (req, res) => {
   const html = `<!DOCTYPE html>
     <html>
     <head>
-      <title>Frog and Toad Care Sheets</title>
+      <title>Frog and Toad Care Guide</title>
     </head>
     <body>
       <div id = "header">
-        <header>Frog Care Sheet</header>
+        <header>&#128056 Frog and Toad Care Guide &#128056</header>
       </div>
 
       <div id = "frogNames">
-        <ul>
-        <li>American Green Tree Frog</li>
-        <li>Barking Tree Frog</li>
-        <li>Fire Bellied Toad</li>
-        <li>Pac Man Frog</li>
-        <li>White Dumpy Tree Frog</li>
-        <li>${frogsList}</li>
-        </ul>
+        ${frogsList.map(frog => `
+        <p>
+          <span class="frogs-position"> &#128056 </span><a href="/posts/${frog.id}">${frog.title}</a>
+        </p>`
+         ).join('')}
       </div>
 
       <div id= "footer">
-        <p>All care sheet information was aquired from https://www.petsuppliesplus.com/</p>
+        <p><small>All care sheet information was aquired from https://www.petsuppliesplus.com/</small></p>
       </div>
     </body>
   </html>`;
@@ -44,37 +41,41 @@ app.get("/", (req, res) => {
     res.send(html);
 } );
 
-// app.get('/posts/:id', (req, res) => {
-//   const id = req.params.id;
-//   const post = postBank.find(id);
+app.get('/posts/:id', (req, res) => {
+  const id = req.params.id;
+  const frogItem = frogs.find(id);
   
-//   //then prepare some html to send as output
-//   const html = `<!DOCTYPE html>
-//     <html>
-//     <head>
-//       <title>Wizard News</title>
-//       <link rel="stylesheet" href="/style.css" />
-//     </head>
-//     <body>
-//       <div class="news-list">
-//         <header><img src="/logo.png"/>Wizard News</header>
-//           <div class='news-item'>
-//             <p>
-//               ${post.title}
-//               <small>(by ${post.name})</small>
-//             </p>
-//             <p>
-//               ${post.content}
-//             </p>
-//           </div>
-//       </div>
-//     </body>
-//   </html>`;
+  //then prepare some html to send as output
+  const html = `<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Frog and Toad Care Guide</title>
+    </head>
+    <body>
+        <div id = "header">
+            <header><a href="/">&#128056 Frog and Toad Care Guide &#128056 </a></header>
+        </div>
 
-//   //Finally, send a response
-//   res.send(html);
+        <div id='frog-item-detail'>
+            <p>
+              ${frogItem.title}
+            </p>
+            <p>
+              ${frogItem.content}
+            </p>
+        </div>
 
-// });
+        <div id= "footer">
+            <p><small>All care sheet information was aquired from https://www.petsuppliesplus.com/</small></p>
+        </div>
+      
+    </body>
+  </html>`;
+
+  //Finally, send a response
+  res.send(html);
+
+});
 
 
 
