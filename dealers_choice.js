@@ -46,25 +46,6 @@ app.get('/posts/:id', (req, res) => {
   const id = req.params.id;
   const frogItem = frogs.find(id);
 
-  let imgName = '';
-
-  if(id === 1){
-      imgName = 'americanTree.jpg';
-  }
-  else if(id ===2){
-      imgName = 'barkingTree.jpg';
-  }
-  else if(id ===3){
-       imgName = 'fireBellied.jpg';
-  }
-  else if(id ===4){
-      imgName = 'pacman.jpg';
-  }
-  else{
-      imgName = 'dumpyTree.jpg';
-  }
-
-  
   //then prepare some html to send as output
   const html = `<!DOCTYPE html>
     <html>
@@ -81,6 +62,10 @@ app.get('/posts/:id', (req, res) => {
             <p>
               ${frogItem.title}
             </p>
+        </div>
+
+        <div id = "photos">
+            <img src="${frogItem.image}">
         </div>
 
         
